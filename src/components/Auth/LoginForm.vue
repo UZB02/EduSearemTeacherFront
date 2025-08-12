@@ -54,7 +54,7 @@ const login = async () => {
     sessionStorage.setItem("teacherToken", res.data.token);
     sessionStorage.setItem("teacherData", JSON.stringify(res.data.teacher));
 
-    router.push("/teacher/dashboard");
+    router.push("/");
   } catch (err) {
     error.value =
       err.response?.data?.message || "Kirishda xatolik yuz berdi";
