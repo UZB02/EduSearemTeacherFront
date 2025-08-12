@@ -1,0 +1,8 @@
+@import "tailwindcss";
+.container{
+    margin: 0 auto;
+}
+.p-toast {
+  min-width: 320px !important;
+  max-width: 600px !important;
+}
