@@ -28,10 +28,10 @@
 
 <script setup>
 import { ref } from "vue";
-import axios from "axios";
 import InputText from "primevue/inputtext";
 import Button from "primevue/button";
 import { useRouter } from "vue-router";
+import api from "../../utils/api.js"
 
 const phone = ref("");
 const loading = ref(false);
@@ -47,7 +47,7 @@ const login = async () => {
 
   try {
     loading.value = true;
-    const res = await axios.post("/teacher-auth/login", {
+    const res = await api.post("/teacher-auth/login", {
       phone: phone.value,
     });
 

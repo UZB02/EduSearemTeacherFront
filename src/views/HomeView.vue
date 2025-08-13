@@ -4,7 +4,7 @@
       <!-- Header Section -->
       <div class="mb-8">
         <div class="flex items-center gap-3 mb-2">
-          <i class="pi pi-users text-3xl text-blue-600"></i>
+          <i class="pi pi-users text-3xl text-gray-600"></i>
           <h1 class="text-4xl font-bold text-gray-800">Mening Guruhlarim</h1>
         </div>
         <p class="text-gray-600 text-lg">O'quvchilar va guruhlar boshqaruvi</p>
@@ -45,7 +45,7 @@
           class="group-card hover:shadow-xl transition-all duration-300 border-0 shadow-lg hover:-translate-y-1"
         >
           <template #header>
-            <div class="bg-gradient-to-r from-blue-500 to-indigo-600 p-4 rounded text-white">
+            <div class="bg-gradient-to-r from-gray-500 to-gray-600 p-4 rounded text-white">
               <div class="flex items-center justify-between">
                 <div class="flex items-center gap-3">
                   <div class="bg-white/20 p-3 rounded-full">
@@ -53,13 +53,13 @@
                   </div>
                   <div>
                     <h2 class="text-xl font-bold">{{ group.name }}</h2>
-                    <p class="text-blue-100 text-sm">Guruh</p>
+                    <p class="text-gray-100 text-sm">Guruh</p>
                   </div>
                 </div>
                 <Badge 
                   :value="group.students.length" 
                   severity="info" 
-                  class="bg-white text-blue-600 font-semibold px-3 py-1"
+                  class="bg-white text-gray-600 font-semibold px-3 py-1"
                 />
               </div>
             </div>
@@ -69,7 +69,7 @@
             <div class="">
               <!-- Students Count Summary -->
               <div class="flex items-center gap-2 mb-4 p-3 bg-gray-50 rounded-lg">
-                <i class="pi pi-users text-blue-600"></i>
+                <i class="pi pi-users text-gray-600"></i>
                 <span class="font-medium text-gray-700">
                   {{ group.students.length }} ta o'quvchi
                 </span>
@@ -87,8 +87,8 @@
                     :key="student._id"
                     class="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
                   >
-                    <div class="bg-blue-100 p-2 rounded-full">
-                      <i class="pi pi-user text-blue-600 text-sm"></i>
+                    <div class="bg-gray-100 p-2 rounded-full">
+                      <i class="pi pi-user text-gray-600 text-sm"></i>
                     </div>
                     <div class="flex-1">
                       <p class="font-medium text-gray-800">
@@ -134,12 +134,12 @@
           </template>
         </Card>
 
-        <Card class="text-center bg-gradient-to-br from-blue-50 to-cyan-100 border-0">
+        <Card class="text-center bg-gradient-to-br from-gray-50 to-cyan-100 border-0">
           <template #content>
             <div class="p-6">
-              <i class="pi pi-users text-4xl text-blue-600 mb-4"></i>
-              <h3 class="text-2xl font-bold text-blue-800">{{ totalStudents }}</h3>
-              <p class="text-blue-600 font-medium">Jami O'quvchilar</p>
+              <i class="pi pi-users text-4xl text-gray-600 mb-4"></i>
+              <h3 class="text-2xl font-bold text-gray-800">{{ totalStudents }}</h3>
+              <p class="text-gray-600 font-medium">Jami O'quvchilar</p>
             </div>
           </template>
         </Card>
@@ -160,13 +160,13 @@
 
 <script setup>
 import { ref, onMounted, computed } from "vue";
-import axios from "axios";
 import Card from "primevue/card";
 import Badge from "primevue/badge";
 import Button from "primevue/button";
 import Message from "primevue/message";
 import ProgressSpinner from "primevue/progressspinner";
 import { useRoute, useRouter } from 'vue-router'
+import api from "../utils/api.js"
 
 const groups = ref([]);
 const loading = ref(false);
@@ -190,7 +190,7 @@ const fetchGroups = async () => {
   try {
     const token = sessionStorage.getItem("teacherToken");
 
-    const res = await axios.get("/attendance/my-students", {
+    const res = await api.get("/attendance/my-students", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
