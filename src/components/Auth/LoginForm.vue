@@ -14,7 +14,7 @@
 
       <!-- Kirish tugmasi -->
       <Button
-        label="Kirish"
+        :label="loading ? 'Loading...' :  'Kirish'"
         class="w-full"
         :loading="loading"
         @click="login"
