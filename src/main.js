@@ -6,7 +6,7 @@ import router from './router'
 import PrimeVue from 'primevue/config'
 import Aura from '@primeuix/themes/aura'
 import ToastService from 'primevue/toastservice'
-// import Tooltip from 'primevue/tooltip'
+import Tooltip from 'primevue/tooltip'
 // import Chart from 'primevue/chart'
 // import Card from 'primevue/card'
 // import ConfirmationService from 'primevue/confirmationservice'
@@ -29,7 +29,7 @@ app.use(PrimeVue, {
   },
 })
 
-// app.directive('tooltip', Tooltip)
+app.directive('tooltip', Tooltip)
 app.use(ToastService)
 // app.component('Chart', Chart)
 // app.component('Card', Card)
