@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import AppLayout from '../layouts/AppLayout.vue'
 import AuthLayout from '../layouts/AuthLayout.vue'
-import HomeView from '../views/HomeView.vue'
+import HomeView from '../views/MainPageView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,9 +17,6 @@ const router = createRouter({
     {
       path: '/:id',
       name: 'Group Id View',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/Group/GroupIdView.vue'),
       meta: {
         layout: AppLayout,
