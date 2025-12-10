@@ -1,23 +1,32 @@
 <template>
-  <div class="min-h-screen flex flex-col">
-    <!-- Navbar -->
-    <NavBar />
+  <div class="flex h-screen bg-gray-100">
+    <!-- Overlay (faqat mobil sidebar ochilganda) -->
+    <div
+      v-if="!sidebarCollapsed"
+      class="fixed inset-0 bg-black/50 z-40 md:hidden"
+      @click="sidebarCollapsed = true"
+    ></div>
 
-    <!-- Kontent qismi -->
-    <div class="flex-1">
-      <!-- Asosiy kontent -->
-      <main class="p-4 bg-gray-50 min-h-full">
-        <RouterView />
+    <!-- Sidebar -->
+    <Sidebar
+      :collapsed="sidebarCollapsed"
+      @toggle="sidebarCollapsed = !sidebarCollapsed"
+    />
+
+    <!-- Main Content -->
+    <div class="flex flex-col flex-1">
+      <NavBar @toggleSidebar="sidebarCollapsed = !sidebarCollapsed" />
+      <main class="flex-1 p-4 overflow-y-auto">
+        <slot />
       </main>
     </div>
   </div>
 </template>
 
 <script setup>
-import { RouterView } from 'vue-router'
-import NavBar from '@/components/Nav/NavBar.vue'
-</script>
+import { ref } from "vue";
+import Sidebar from "@/components/Sidebar/SideBar.vue";
+import NavBar from "@/components/Nav/NavBar.vue";
 
-<style scoped>
-/* Sidebar uchun animatsiyalar endi kerak emas, olib tashlashing mumkin */
-</style>
+const sidebarCollapsed = ref(true); // default: yopiq
+</script>
