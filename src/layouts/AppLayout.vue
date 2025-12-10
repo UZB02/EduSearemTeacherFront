@@ -15,7 +15,7 @@
 
     <!-- Main Content -->
     <div class="flex flex-col flex-1">
-      <NavBar @toggleSidebar="sidebarCollapsed = !sidebarCollapsed" />
+      <Navbar @toggleSidebar="sidebarCollapsed = !sidebarCollapsed" />
       <main class="flex-1 p-4 overflow-y-auto">
         <slot />
       </main>
@@ -25,8 +25,8 @@
 
 <script setup>
 import { ref } from "vue";
-import Sidebar from "../components/Sidebar/SideBar.vue";
-import NavBar from "../components/Nav/NavBar.vue";
+import Sidebar from "../components/Sidebarcompo/AppSidebar.vue";
+import Navbar from "../components/Navbar/Nav.vue";
 
 const sidebarCollapsed = ref(true); // default: yopiq
 </script>
