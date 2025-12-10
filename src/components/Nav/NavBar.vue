@@ -59,7 +59,6 @@ const menuItems = [
     ]
   }
 ];
-
 // Toggle menu
 const toggleMenu = (event) => {
   menu.value.toggle(event);
