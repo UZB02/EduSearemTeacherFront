@@ -16,8 +16,8 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router' // Router import qilindi
 import Button from 'primevue/button'
 import Menu from 'primevue/menu'
-
 const router = useRouter() // Router instance
+
 const menu = ref(null)
 
 // Teacher ma'lumotini sessionStorage dan olish
