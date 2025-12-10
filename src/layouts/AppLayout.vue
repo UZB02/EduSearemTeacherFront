@@ -25,8 +25,8 @@
 
 <script setup>
 import { ref } from "vue";
-import Sidebar from "@/components/Sidebar/SideBar.vue";
-import NavBar from "@/components/Nav/NavBar.vue";
+import Sidebar from "../components/Sidebar/SideBar.vue";
+import NavBar from "../components/Nav/NavBar.vue";
 
 const sidebarCollapsed = ref(true); // default: yopiq
 </script>
