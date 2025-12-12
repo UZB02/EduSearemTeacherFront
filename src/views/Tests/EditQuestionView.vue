@@ -26,12 +26,22 @@
       <!-- To‘g‘ri javob -->
       <div>
         <label class="block mb-1">To‘g‘ri javob</label>
-        <Dropdown
-          v-model="question.correctAnswer"
-          :options="question.options"
-          placeholder="To‘g‘ri javobni tanlang"
-          class="w-full"
-        />
+      <Dropdown
+  v-model="question.correctAnswer"
+  :options="question.options"
+  :optionLabel="htmlLabel"
+  placeholder="To‘g‘ri javobni tanlang"
+  class="w-full"
+>
+  <template #value="slotProps">
+    <div v-html="slotProps.value"></div>
+  </template>
+
+  <template #option="slotProps">
+    <div v-html="slotProps.option"></div>
+  </template>
+</Dropdown>
+
       </div>
 
       <!-- Ball -->
@@ -120,7 +130,9 @@ const saveQuestion = async () => {
     loading.value = false;
   }
 };
-
+function htmlLabel(option) {
+  return option;
+}
 // Bekor qilish
 const cancel = () => router.push(`/tests/${testId}`);
 

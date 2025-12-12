@@ -11,6 +11,14 @@
           class="w-full"
         />
       </div>
+      <div class="mb-4">
+        <label class="block mb-1 text-sm font-medium text-gray-700">Parol</label>
+        <InputText
+          v-model="password"
+          placeholder="**************"
+          class="w-full"
+        />
+      </div>
 
       <!-- Kirish tugmasi -->
       <Button
@@ -34,6 +42,7 @@ import { useRouter } from "vue-router";
 import api from "../../utils/api.js"
 
 const phone = ref("");
+const password = ref();
 const loading = ref(false);
 const error = ref("");
 const router = useRouter();
@@ -49,6 +58,7 @@ const login = async () => {
     loading.value = true;
     const res = await api.post("/teacher-auth/login", {
       phone: phone.value,
+      password:password.value
     });
 
     sessionStorage.setItem("teacherToken", res.data.token);
