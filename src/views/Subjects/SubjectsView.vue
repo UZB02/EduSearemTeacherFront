@@ -32,6 +32,7 @@
     <SubjectForm
       v-model:visible="subjectDialog"
       :subject="editingSubject"
+        @saveSubject="saveSubject"
     />
 
     <!-- Toast & Confirm -->

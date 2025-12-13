@@ -60,7 +60,7 @@
           label="Saqlash"
           icon="pi pi-check"
           class="w-full sm:w-auto"
-          @click="save"
+            @click="save"
         />
       </div>
     </template>
@@ -77,7 +77,7 @@ const props = defineProps({
   visible: Boolean,
 });
 
-const emit = defineEmits(["update:visible", "save"]);
+const emit = defineEmits(["update:visible", "saveSubject"]);
 
 const form = ref({
   name: "",
@@ -98,6 +98,6 @@ watch(
 
 // Save
 const save = () => {
-  emit("save", { ...form.value });
+  emit("saveSubject", { ...form.value });
 };
 </script>
