@@ -1,50 +1,90 @@
 <template>
-  <header class="flex items-center justify-between bg-white border-b border-gray-300 px-4 py-2">
-    <!-- Sidebar Toggle (faqat mobil) -->
-    <Button icon="pi pi-bars" class="md:hidden" @click="$emit('toggleSidebar')" />
-    <h1 class="text-lg font-semibold text-gray-700">Dashboard</h1>
-    <div class="flex items-center space-x-2">
-      <Button icon="pi pi-bell" class="p-button-rounded p-button-text" />
-      <Button icon="pi pi-user" @click="toggleMenu" class="p-button-rounded p-button-text" />
-      <Menu ref="menu" :model="menuItems" :popup="true" />
+  <header
+    class="flex items-center justify-between
+           bg-white border-b border-gray-200
+           px-3 sm:px-4 md:px-6
+           h-14 sm:h-16"
+  >
+    <!-- Chap qism -->
+    <div class="flex items-center gap-3">
+      <!-- Sidebar toggle (faqat mobil & tablet) -->
+      <Button
+        icon="pi pi-bars"
+        class="md:hidden p-button-text"
+        @click="$emit('toggleSidebar')"
+      />
+
+      <!-- Title -->
+      <h1
+        class="text-base sm:text-lg font-semibold text-gray-700
+               hidden sm:block"
+      >
+        Dashboard
+      </h1>
+    </div>
+
+    <!-- O'ng qism -->
+    <div class="flex items-center gap-1 sm:gap-2">
+      <!-- Notification -->
+      <Button
+        icon="pi pi-bell"
+        class="p-button-rounded p-button-text"
+      />
+
+      <!-- User -->
+      <Button
+        icon="pi pi-user"
+        class="p-button-rounded p-button-text"
+        @click="toggleMenu"
+      />
+
+      <Menu ref="menu" :model="menuItems" popup />
     </div>
   </header>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { useRouter } from 'vue-router' // Router import qilindi
+import { useRouter } from 'vue-router'
 import Button from 'primevue/button'
 import Menu from 'primevue/menu'
-const router = useRouter() // Router instance
 
+const router = useRouter()
 const menu = ref(null)
 
-// Teacher ma'lumotini sessionStorage dan olish
-let teacherData = sessionStorage.getItem('teacherData')
-let teacher = teacherData ? JSON.parse(teacherData) : { name: '', lastname: '' }
+// Teacher ma'lumotlari
+const teacherData = sessionStorage.getItem('teacherData')
+const teacher = teacherData
+  ? JSON.parse(teacherData)
+  : { name: '', lastname: '' }
 
-// Logout funksiyasi
+// Logout
 const handleLogout = () => {
   sessionStorage.removeItem('teacherData')
   sessionStorage.removeItem('teacherToken')
-  router.push('/login') // login sahifasiga yo'naltirish
+  router.push('/login')
 }
+
 // Menu items
 const menuItems = [
   {
-    label: 'Options',
+    label: 'Profil',
     items: [
-      { label: `${teacher.name} ${teacher.lastname}`, icon: 'pi pi-user' },
+      {
+        label: `${teacher.name} ${teacher.lastname}`,
+        icon: 'pi pi-user',
+        disabled: true,
+      },
       {
         label: 'Chiqish',
         icon: 'pi pi-sign-out',
-        styleClass: 'text-red-500 hover:text-red-700',
-        command: handleLogout, // bosilganda ishlaydi
+        class: 'text-red-500',
+        command: handleLogout,
       },
     ],
   },
 ]
+
 // Toggle menu
 const toggleMenu = (event) => {
   menu.value.toggle(event)

@@ -95,12 +95,6 @@
             Hozircha bu guruh uchun davomat ma'lumotlari kiritilmagan yoki tanlangan filtrlarga mos
             ma'lumotlar topilmadi.
           </p>
-          <Button
-            label="Davomat qo'shish"
-            icon="pi pi-plus"
-            class="bg-purple-600 border-purple-600 hover:bg-purple-700"
-            @click="$emit('add-attendance')"
-          />
         </div>
       </div>
 

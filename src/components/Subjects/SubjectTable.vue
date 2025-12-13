@@ -1,29 +1,55 @@
 <template>
   <DataTable
     :value="subjects"
-    :paginator="true"
+    paginator
     :rows="10"
     sortField="name"
     :sortOrder="1"
-    responsiveLayout="scroll"
+    responsiveLayout="stack"
+    breakpoint="768px"
+    class="text-sm"
   >
-    <Column field="name" header="Fan Nomi" sortable></Column>
-    <Column field="code" header="Kod" sortable></Column>
-    <Column field="description" header="Tavsif"></Column>
+    <!-- Fan nomi -->
+    <Column field="name" header="Fan">
+      <template #body="{ data }">
+        <span class="font-medium">
+          {{ data.name }}
+        </span>
+      </template>
+    </Column>
+
+    <!-- Kod (mobil da yashirin) -->
+    <Column
+      field="code"
+      header="Kod"
+      sortable
+      class="hidden md:table-cell"
+    />
+
+    <!-- Tavsif (faqat desktop) -->
+    <Column
+      field="description"
+      header="Tavsif"
+      class="hidden lg:table-cell"
+    />
 
     <!-- Amallar -->
     <Column header="Amallar">
-      <template #body="slotProps">
-        <div class="flex gap-2">
+      <template #body="{ data }">
+        <div
+          class="flex gap-2
+                 justify-end md:justify-start"
+        >
           <Button
             icon="pi pi-pencil"
-            class="p-button-sm p-button-warning"
-            @click="$emit('edit-subject', slotProps.data)"
+            class="p-button-rounded p-button-text p-button-warning"
+            @click="$emit('edit-subject', data)"
           />
+
           <Button
             icon="pi pi-trash"
-            class="p-button-sm p-button-danger"
-            @click="$emit('delete-subject', slotProps.data)"
+            class="p-button-rounded p-button-text p-button-danger"
+            @click="$emit('delete-subject', data)"
           />
         </div>
       </template>
@@ -36,8 +62,9 @@ import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import Button from "primevue/button";
 
-const props = defineProps({
-  subjects: Array
+defineProps({
+  subjects: Array,
 });
-const emit = defineEmits(["edit-subject", "delete-subject"]);
+
+defineEmits(["edit-subject", "delete-subject"]);
 </script>

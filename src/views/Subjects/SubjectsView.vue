@@ -1,35 +1,44 @@
 <template>
-  <div class="p-6">
-    <h1 class="text-2xl font-bold mb-4">Mening Fanlarim</h1>
+  <div class="p-3 sm:p-4 md:p-6 max-w-6xl mx-auto">
+    <!-- Header -->
+    <div
+      class="flex flex-col sm:flex-row
+             sm:items-center sm:justify-between
+             gap-3 mb-4"
+    >
+      <h1
+        class="text-xl sm:text-2xl font-bold"
+      >
+        Mening Fanlarim
+      </h1>
 
-    <!-- Yangi fan qo'shish tugmasi -->
-    <Button
-      label="Yangi Fan Qo'shish"
-      icon="pi pi-plus"
-      class="mb-4"
-      @click="openNewSubjectDialog"
-    />
+      <!-- New subject -->
+      <Button
+        label="Yangi Fan Qo'shish"
+        icon="pi pi-plus"
+        class="w-full sm:w-auto"
+        @click="openNewSubjectDialog"
+      />
+    </div>
 
-    <!-- Fanlar jadvali -->
+    <!-- Table -->
     <SubjectTable
       :subjects="subjects"
       @edit-subject="editSubject"
       @delete-subject="confirmDeleteSubject"
     />
 
-    <!-- Yangi/Tahrirlash Dialog -->
+    <!-- Dialog -->
     <SubjectForm
       v-model:visible="subjectDialog"
       :subject="editingSubject"
-      @save="saveSubject"
     />
 
-    <!-- Toast va ConfirmDialog -->
+    <!-- Toast & Confirm -->
     <Toast />
     <ConfirmDialog />
   </div>
 </template>
-
 <script setup>
 import { ref, onMounted } from "vue";
 import api from "@/utils/api.js";
@@ -39,60 +48,79 @@ import Button from "primevue/button";
 import Toast from "primevue/toast";
 import { useToast } from "primevue/usetoast";
 import { useConfirm } from "primevue/useconfirm";
+import ConfirmDialog from "primevue/confirmdialog";
 
 // Components
 import SubjectForm from "@/components/Subjects/SubjectForm.vue";
 import SubjectTable from "@/components/Subjects/SubjectTable.vue";
 
-// Reactive states
 const subjects = ref([]);
 const subjectDialog = ref(false);
 const editingSubject = ref(null);
 
-// Toast & Confirm
 const toast = useToast();
 const confirm = useConfirm();
 
-// Load subjects
+// Load
 const loadSubjects = async () => {
   try {
     const res = await api.get("/subjects");
     subjects.value = res.data;
   } catch (err) {
-    toast.add({ severity: "error", summary: "Xato", detail: err.message });
+    toast.add({
+      severity: "error",
+      summary: "Xato",
+      detail: err.message,
+    });
   }
 };
 
-// New Subject
+// New
 const openNewSubjectDialog = () => {
   editingSubject.value = null;
   subjectDialog.value = true;
 };
 
-// Edit Subject
+// Edit
 const editSubject = (subject) => {
   editingSubject.value = { ...subject };
   subjectDialog.value = true;
 };
 
-// Save Subject
+// Save
 const saveSubject = async (formData) => {
   try {
     if (editingSubject.value?._id) {
-      await api.put(`/subjects/${editingSubject.value._id}`, formData);
-      toast.add({ severity: "success", summary: "Muvaffaqiyat", detail: "Fan yangilandi" });
+      await api.put(
+        `/subjects/${editingSubject.value._id}`,
+        formData
+      );
+      toast.add({
+        severity: "success",
+        summary: "Muvaffaqiyat",
+        detail: "Fan yangilandi",
+      });
     } else {
       await api.post("/subjects", formData);
-      toast.add({ severity: "success", summary: "Muvaffaqiyat", detail: "Yangi fan qo'shildi" });
+      toast.add({
+        severity: "success",
+        summary: "Muvaffaqiyat",
+        detail: "Yangi fan qo'shildi",
+      });
     }
+
     subjectDialog.value = false;
     await loadSubjects();
   } catch (err) {
-    toast.add({ severity: "error", summary: "Xato", detail: err.response?.data?.message || err.message });
+    toast.add({
+      severity: "error",
+      summary: "Xato",
+      detail: err.response?.data?.message || err.message,
+    });
   }
 };
 
-// Confirm Delete
+// Delete
 const confirmDeleteSubject = (subject) => {
   confirm.require({
     message: "Fan o‘chirilsinmi?",
@@ -101,15 +129,23 @@ const confirmDeleteSubject = (subject) => {
     accept: async () => {
       try {
         await api.delete(`/subjects/${subject._id}`);
-        toast.add({ severity: "success", summary: "Muvaffaqiyat", detail: "Fan o‘chirildi" });
+        toast.add({
+          severity: "success",
+          summary: "Muvaffaqiyat",
+          detail: "Fan o‘chirildi",
+        });
         await loadSubjects();
       } catch (err) {
-        toast.add({ severity: "error", summary: "Xato", detail: err.response?.data?.message || err.message });
+        toast.add({
+          severity: "error",
+          summary: "Xato",
+          detail:
+            err.response?.data?.message || err.message,
+        });
       }
     },
   });
 };
 
-// On Mounted
 onMounted(loadSubjects);
 </script>

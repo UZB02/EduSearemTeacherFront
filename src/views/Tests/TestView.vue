@@ -1,7 +1,6 @@
 <template>
-  <div class="p-6">
+  <div class="p-2">
     <h1 class="text-2xl font-bold mb-4">Testlar</h1>
-
   <Button
   label="Yangi Test"
   icon="pi pi-plus"
