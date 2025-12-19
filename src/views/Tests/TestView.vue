@@ -45,7 +45,7 @@ const loadSubjects = async () => {
     const res = await api.get("/subjects");
     subjects.value = res.data;
   } catch (err) {
-    toast.add({ severity: "error", summary: "Xato", detail: err.message });
+    toast.add({ severity: "error", summary: "Xato", detail: err.message,life: 3000 });
   }
 };
 
@@ -55,7 +55,7 @@ const loadTests = async () => {
     tests.value = res.data;
     console.log(res.data);
   } catch (err) {
-    toast.add({ severity: "error", summary: "Xato", detail: err.message });
+    toast.add({ severity: "error", summary: "Xato", detail: err.message,life: 3000 });
   }
 };
 
@@ -75,15 +75,15 @@ const saveTest = async (formData) => {
   try {
     if (editingTest.value?._id) {
       await api.put(`/tests/${editingTest.value._id}`, formData);
-      toast.add({ severity: "success", summary: "Muvaffaqiyat", detail: "Test yangilandi" });
+      toast.add({ severity: "success", summary: "Muvaffaqiyat", detail: "Test yangilandi",life: 3000 });
     } else {
       await api.post("/tests", formData);
-      toast.add({ severity: "success", summary: "Muvaffaqiyat", detail: "Yangi test qo'shildi" });
+      toast.add({ severity: "success", summary: "Muvaffaqiyat", detail: "Yangi test qo'shildi",life: 3000 });
     }
     testDialog.value = false;
     await loadTests();
   } catch (err) {
-    toast.add({ severity: "error", summary: "Xato", detail: err.response?.data?.message || err.message });
+    toast.add({ severity: "error", summary: "Xato", detail: err.response?.data?.message || err.message,life: 3000 });
   }
 };
 
@@ -91,10 +91,10 @@ const deleteTest = async (test) => {
   if (!confirm("Testni o‘chirilsinmi?")) return;
   try {
     await api.delete(`/tests/${test._id}`);
-    toast.add({ severity: "success", summary: "Muvaffaqiyat", detail: "Test o‘chirildi" });
+    toast.add({ severity: "success", summary: "Muvaffaqiyat", detail: "Test o‘chirildi",life: 3000 });
     await loadTests();
   } catch (err) {
-    toast.add({ severity: "error", summary: "Xato", detail: err.response?.data?.message || err.message });
+    toast.add({ severity: "error", summary: "Xato", detail: err.response?.data?.message || err.message,life: 3000 });
   }
 };
 

@@ -99,14 +99,14 @@ const saveSubject = async (formData) => {
       toast.add({
         severity: "success",
         summary: "Muvaffaqiyat",
-        detail: "Fan yangilandi",
+        detail: "Fan yangilandi",life: 3000
       });
     } else {
       await api.post("/subjects", formData);
       toast.add({
         severity: "success",
         summary: "Muvaffaqiyat",
-        detail: "Yangi fan qo'shildi",
+        detail: "Yangi fan qo'shildi",life: 3000
       });
     }
 
@@ -116,7 +116,7 @@ const saveSubject = async (formData) => {
     toast.add({
       severity: "error",
       summary: "Xato",
-      detail: err.response?.data?.message || err.message,
+      detail: err.response?.data?.message || err.message,life: 3000
     });
   }
 };
@@ -133,7 +133,7 @@ const confirmDeleteSubject = (subject) => {
         toast.add({
           severity: "success",
           summary: "Muvaffaqiyat",
-          detail: "Fan o‘chirildi",
+          detail: "Fan o‘chirildi",life: 3000
         });
         await loadSubjects();
       } catch (err) {
@@ -141,7 +141,7 @@ const confirmDeleteSubject = (subject) => {
           severity: "error",
           summary: "Xato",
           detail:
-            err.response?.data?.message || err.message,
+            err.response?.data?.message || err.message,life: 3000
         });
       }
     },

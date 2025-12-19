@@ -82,7 +82,7 @@ const loadResults = async () => {
     testTitle.value = "Test natijalari"; // Agar API testTitle bermasa, shunchaki nom qo'yish
     results.value = res.data; // Agar res.data allaqachon array bo'lsa
   } catch (err) {
-    toast.add({ severity: "error", summary: "Xato", detail: err.response?.data?.message || err.message });
+    toast.add({ severity: "error", summary: "Xato", detail: err.response?.data?.message || err.message,life: 3000 });
   } finally {
     loading.value = false;
   }

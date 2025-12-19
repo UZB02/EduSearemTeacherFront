@@ -186,7 +186,7 @@ const saveQuestion = async () => {
     toast.add({
       severity: "warn",
       summary: "Ogohlantirish",
-      detail: "Barcha maydonlar to‘ldirilishi kerak",
+      detail: "Barcha maydonlar to‘ldirilishi kerak",life: 3000
     });
     return;
   }
@@ -200,14 +200,14 @@ const saveQuestion = async () => {
     toast.add({
       severity: "success",
       summary: "Muvaffaqiyat",
-      detail: "Savol yangilandi",
+      detail: "Savol yangilandi",life: 3000
     });
     router.push(`/tests/${testId}`);
   } catch (err) {
     toast.add({
       severity: "error",
       summary: "Xato",
-      detail: err.response?.data?.message || err.message,
+      detail: err.response?.data?.message || err.message,life: 3000
     });
   } finally {
     loading.value = false;

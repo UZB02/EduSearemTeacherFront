@@ -94,7 +94,7 @@ const loadTest = async () => {
     const res = await api.get(`/tests/${route.params.id}`);
     test.value = res.data;
   } catch (err) {
-    toast.add({ severity: "error", summary: "Xato", detail: err.response?.data?.message || err.message });
+    toast.add({ severity: "error", summary: "Xato", detail: err.response?.data?.message || err.message,life: 3000 });
   }
 };
 
@@ -115,7 +115,7 @@ const removeOption = (index) => {
 // Savol qo‘shish
 const addQuestion = async () => {
   if (!newQuestion.value.question || newQuestion.value.options.length === 0 || !newQuestion.value.correctAnswer) {
-    toast.add({ severity: "warn", summary: "Ogohlantirish", detail: "Barcha maydonlar to‘ldirilishi kerak" });
+    toast.add({ severity: "warn", summary: "Ogohlantirish", detail: "Barcha maydonlar to‘ldirilishi kerak",life: 3000 });
     return;
   }
 
@@ -129,7 +129,7 @@ const addQuestion = async () => {
       points: newQuestion.value.points,
     });
 
-    toast.add({ severity: "success", summary: "Muvaffaqiyat", detail: "Savol qo‘shildi" });
+    toast.add({ severity: "success", summary: "Muvaffaqiyat", detail: "Savol qo‘shildi",life: 3000 });
         router.push(`/tests/${route.params.id}`);
     // Formani tozalash
     newQuestion.value.question = "";
@@ -138,7 +138,7 @@ const addQuestion = async () => {
     newQuestion.value.points = 1;
 
   } catch (err) {
-    toast.add({ severity: "error", summary: "Xato", detail: err.response?.data?.message || err.message });
+    toast.add({ severity: "error", summary: "Xato", detail: err.response?.data?.message || err.message,life: 3000 });
   } finally {
     loading.value = false;
   }

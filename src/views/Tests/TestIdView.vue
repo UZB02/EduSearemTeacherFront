@@ -121,7 +121,7 @@ const loadTest = async () => {
     toast.add({
       severity: "error",
       summary: "Xato",
-      detail: err.response?.data?.message || err.message,
+      detail: err.response?.data?.message || err.message,life: 3000
     });
   }
 };
@@ -160,13 +160,13 @@ const deleteQuestion = async (index) => {
     toast.add({
       severity: "success",
       summary: "Muvaffaqiyat",
-      detail: "Savol o‘chirildi",
+      detail: "Savol o‘chirildi",life: 3000
     });
   } catch (err) {
     toast.add({
       severity: "error",
       summary: "Xato",
-      detail: err.response?.data?.message || err.message,
+      detail: err.response?.data?.message || err.message,life: 3000
     });
   }
 };

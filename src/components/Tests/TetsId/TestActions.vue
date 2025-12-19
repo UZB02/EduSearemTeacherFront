@@ -47,9 +47,9 @@ const generateLink = async () => {
     const res = await api.post(`/tests/${props.testId}/generate-link`);
     link.value = res.data.link;
     emit("link-generated", link.value);
-    toast.add({ severity: "success", summary: "Muvaffaqiyat", detail: "Havola yaratildi" });
+    toast.add({ severity: "success", summary: "Muvaffaqiyat", detail: "Havola yaratildi",life: 3000 });
   } catch (err) {
-    toast.add({ severity: "error", summary: "Xato", detail: err.response?.data?.message || err.message });
+    toast.add({ severity: "error", summary: "Xato", detail: err.response?.data?.message || err.message,life: 3000 });
   }
 };
 
@@ -57,9 +57,9 @@ const generateLink = async () => {
 const copyLink = async () => {
   try {
     await navigator.clipboard.writeText(link.value);
-    toast.add({ severity: "success", summary: "Muvaffaqiyat", detail: "Havola nusxalandi" });
+    toast.add({ severity: "success", summary: "Muvaffaqiyat", detail: "Havola nusxalandi",life: 3000 });
   } catch {
-    toast.add({ severity: "error", summary: "Xato", detail: "Havola nusxalanmadi" });
+    toast.add({ severity: "error", summary: "Xato", detail: "Havola nusxalanmadi",life: 3000 });
   }
 };
 </script>

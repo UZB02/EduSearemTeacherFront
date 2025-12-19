@@ -172,7 +172,7 @@ const loadSubjects = async () => {
     const res = await api.get("/subjects");
     subjects.value = res.data;
   } catch (err) {
-    toast.add({ severity: "error", summary: "Xato", detail: err.message });
+    toast.add({ severity: "error", summary: "Xato", detail: err.message, life: 3000 });
   }
 };
 
@@ -192,15 +192,15 @@ const resetCurrent = () => {
 // Savol validatsiyasi
 const validateQuestion = () => {
   if (!current.value.question) {
-    toast.add({ severity: "warn", summary: "Xato", detail: "Savol matni bo‘sh bo‘lishi mumkin emas!" });
+    toast.add({ severity: "warn", summary: "Xato", detail: "Savol matni bo‘sh bo‘lishi mumkin emas!", life: 3000 });
     return false;
   }
   if (current.value.options.length < 2) {
-    toast.add({ severity: "warn", summary: "Xato", detail: "Kamida 2 ta javob varianti bo‘lishi kerak!" });
+    toast.add({ severity: "warn", summary: "Xato", detail: "Kamida 2 ta javob varianti bo‘lishi kerak!", life: 3000 });
     return false;
   }
   if (!current.value.correctAnswer) {
-    toast.add({ severity: "warn", summary: "Xato", detail: "To‘g‘ri javob tanlanmagan!" });
+    toast.add({ severity: "warn", summary: "Xato", detail: "To‘g‘ri javob tanlanmagan!", life: 3000 });
     return false;
   }
   return true;
@@ -221,7 +221,7 @@ const addQuestionCard = () => {
   saveQuestionsToLS();   // 🔥 localStorage saqlash
 
   resetCurrent();
-  toast.add({ severity: "success", summary: "Qo‘shildi", detail: "Savol qo‘shildi" });
+  toast.add({ severity: "success", summary: "Qo‘shildi", detail: "Savol qo‘shildi" , life: 3000});
 };
 
 // Savolni kartadan tahrirlashga olish
@@ -238,7 +238,7 @@ const saveEditedQuestion = () => {
   form.value.questions[editingIndex.value] = JSON.parse(JSON.stringify(current.value));
   saveQuestionsToLS(); // 🔥 localStorage saqlash
 
-  toast.add({ severity: "success", summary: "Yangilandi", detail: "Savol tahrirlandi" });
+  toast.add({ severity: "success", summary: "Yangilandi", detail: "Savol tahrirlandi", life: 3000 });
   cancelEditing();
 };
 
@@ -269,7 +269,7 @@ onMounted(async () => {
       // LocalStorage’da saqlangan bo‘lsa ustiga yuklaymiz
       loadQuestionsFromLS();
     } catch (err) {
-      toast.add({ severity: "error", summary: "Xato", detail: err.message });
+      toast.add({ severity: "error", summary: "Xato", detail: err.message, life: 3000 });
     }
   } else {
     // Yangi test uchun
@@ -282,16 +282,16 @@ const saveTest = async () => {
   try {
     if (test.value?._id) {
       await api.put(`/tests/${test.value._id}`, form.value);
-      toast.add({ severity: "success", summary: "Yangilandi", detail: "Test yangilandi" });
+      toast.add({ severity: "success", summary: "Yangilandi", detail: "Test yangilandi", life: 3000 });
     } else {
       await api.post("/tests", form.value);
-      toast.add({ severity: "success", summary: "Muvaffaqiyat", detail: "Yangi test qo‘shildi" });
+      toast.add({ severity: "success", summary: "Muvaffaqiyat", detail: "Yangi test qo‘shildi",life: 3000 });
     }
     // LocalStorage tozalash
     localStorage.removeItem(lsKey.value);
     router.push({ name: "Tests" });
   } catch (err) {
-    toast.add({ severity: "error", summary: "Xato", detail: err.response?.data?.message || err.message });
+    toast.add({ severity: "error", summary: "Xato", detail: err.response?.data?.message || err.message , life: 3000 });
   }
 };
 
